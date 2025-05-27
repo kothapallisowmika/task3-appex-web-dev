@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Carousel</title>
+  <style>
+    .carousel {
+      position: relative;
+      max-width: 500px;
+      margin: auto;
+      padding: 12%;
+      border-radius: 150px;
+      background-color: rgb(247, 242, 246);
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+                  rgba(0, 0, 0, 0.12) 0px -12px 30px,
+                  rgba(0, 0, 0, 0.12) 0px 4px 6px,
+                  rgba(0, 0, 0, 0.17) 0px 12px 13px,
+                  rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+
+    .slides {
+      display: none;
+      width: 100%;
+      height: 350px;           
+      object-fit: cover;        
+      border-radius: 0px 50px 20px 50px;
+      box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: black;
+      font-weight: bold;
+      font-size: 18px;
+      user-select: none;
+    }
+
+    .prev {
+      left: 0;
+      color: brown;
+    }
+
+    .next {
+      right: 0;
+      color: brown;
+    }
+
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .controls button {
+      background-color: transparent;
+      border: 2px solid brown;
+      border-radius: 5px;
+      padding: 5px 10px;
+      color: brown;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .controls button:focus {
+      outline: none;
+      background-color: #f0e6d6;
+    }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <img class="slides active" src="Virat_Kohli_portrait.jpg" alt="Virat Kohli 1" />
+    <img class="slides" src="VIRAT-KOHLI.jpg" alt="Virat Kohli 2" />
+    <img class="slides" src="images.jpeg" alt="Image 3" />
+
+    <a class="prev" href="#" aria-label="Previous Slide"><kbd>←</kbd></a>
+    <a class="next" href="#" aria-label="Next Slide"><kbd>→</kbd></a>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slides');
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) {
+          slide.classList.add('active');
+        }
+      });
+    }
+
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    next.addEventListener('click', nextSlide);
+    prev.addEventListener('click', prevSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Joke Generator</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+
+    .joke-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ff6600;
+    }
+
+    #joke {
+      font-size: 1.2rem;
+      margin: 20px 0;
+      min-height: 60px;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background-color: #ff6600;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e65c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="joke-box">
+    <h1>Get a Random Joke 😂</h1>
+    <div id="joke">Click the button to laugh!</div>
+    <button onclick="getJoke()">Get Joke</button>
+  </div>
+
+  <script>
+    function getJoke() {
+      const jokeEl = document.getElementById('joke');
+      jokeEl.textContent = 'Loading...';
+
+      fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(res => res.json())
+        .then(data => {
+          jokeEl.textContent = `${data.setup} — ${data.punchline}`;
+        })
+        .catch(err => {
+          jokeEl.textContent = 'Oops! Something went wrong.';
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
